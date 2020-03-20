@@ -1,0 +1,3 @@
+h1. csvpager
+
+p. A small program to view large CSV documents and compare the records.

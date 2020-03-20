@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+require 'curses'
+require 'optimist'
+
+$opts = Optimist::options do
+  banner <<-EOBANNER
+csvpager: A CSV file comparator
+
+Usage:
+    csvpager [options]
+
+where [options] are:
+EOBANNER
+  version "csvpager v0.1"
+  opt :file, "CSV file", type: String, required: true
+  opt :separator, "CSV column separator", type: String, default: ?,
+end
+
+$table = CSV.read($opts[:file], headers: true, col_sep: $opts[:separator])
+$headwid = $table.headers.map(&:length).max
+$row = 0
+$line = 0
+
+def help_win
+  win = Curses::Window.new(8, 29, 5, 5)
+  win.box(?|, ?-)
+  win.setpos(1, 2); win.addstr("h/l: move between records")
+  win.setpos(2, 2); win.addstr("j/k: scroll in record")
+  win.setpos(3, 2); win.addstr("q: quit")
+  win.setpos(4, 2); win.addstr("?: this help")
+  win.setpos(6, 2); win.addstr("Hit any key to dismiss...")
+  win.refresh
+  win.getch
+  win.close
+end
+
+def show_row
+  Curses.clear
+  Curses.setpos(0,0)
+  ig = 0
+  $table[$row].each do |key, value|
+    if ig < $line
+      ig += 1
+      next
+    end
+
+    break if ig == Curses.lines + $line
+
+    Curses.addstr("%#{$headwid}s: %s\n" % [key, value])
+    ig += 1
+  end
+end
+
+def handle_kbd
+  input = Curses.getch
+  case input
+  when ?l
+    $row += 1 if $row < $table.length
+  when ?h
+    $row -= 1 if $row > 0
+  when ?j
+    $line += 1 if $line < $table.headers.length - Curses.lines
+  when ?k
+    $line -= 1 if $line > 0
+  when ??
+    help_win
+  when ?q
+    exit 0
+  end
+end
+
+begin
+  Curses.init_screen
+  Curses.curs_set(0)
+  Curses.cbreak
+  loop do
+    show_row
+    Curses.refresh
+    handle_kbd
+  end
+ensure
+  Curses.close_screen
+end

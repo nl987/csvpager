@@ -1,0 +1,2 @@
+gem 'optimist'
+gem 'curses'
