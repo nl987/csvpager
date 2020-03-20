@@ -7,12 +7,12 @@ h2. Install and usage
 h3. Gem
 
 bc. $ gem install csvpager
- $ csvpager -h
+$ csvpager -h
 
 h3. From source
 
 bc. $ bundle install
- $ bin/csvpager -h
+$ bin/csvpager -h
 
 h2. Keyboard shortcuts
 
