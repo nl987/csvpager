@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
   ]
   s.license     = 'BSD-3-Clause'
 
-  s.add_runtime_dependency 'optimist', '~> 0'
-  s.add_runtime_dependency 'curses', '~> 0'
+  s.add_runtime_dependency 'optimist', '~> 3.0'
+  s.add_runtime_dependency 'curses', '~> 1.3', '>= 1.3.2'
 end
