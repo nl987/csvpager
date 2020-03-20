@@ -2,18 +2,18 @@ h1. csvpager
 
 p. A small program to view large CSV documents and compare the records.
 
-h1. Install and usage
+h2. Install and usage
 
-h2. Gem
+h3. Gem
 
-bc. gem install csvpager
-csvpager -h
+bc. $ gem install csvpager
+ $ csvpager -h
 
-h2. From source
+h3. From source
 
-bc. bundle install
-bin/csvpager -h
+bc. $ bundle install
+ $ bin/csvpager -h
 
-h1. Keyboard shortcuts
+h2. Keyboard shortcuts
 
 p. Press @?@ for a list of keyboard commands.
