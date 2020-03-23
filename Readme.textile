@@ -6,7 +6,8 @@ h2. Install and usage
 
 h3. Gem
 
-bc. $ gem install csvpager
+bc. $ gem build csvpager
+$ gem install csvpager
 $ csvpager -h
 
 h3. From source
