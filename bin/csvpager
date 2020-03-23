@@ -13,7 +13,7 @@ Usage:
 
 where [options] are:
 EOBANNER
-  version "csvpager v0.1"
+  version "csvpager v0.1.1"
   opt :file, "CSV file", type: String, required: true
   opt :separator, "CSV column separator", type: String, default: ?,
 end
@@ -57,7 +57,7 @@ def handle_kbd
   input = Curses.getch
   case input
   when ?l
-    $row += 1 if $row < $table.length
+    $row += 1 if $row < ($table.length - 1)
   when ?h
     $row -= 1 if $row > 0
   when ?j
